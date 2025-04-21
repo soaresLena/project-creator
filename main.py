@@ -1,11 +1,30 @@
 from pathlib import Path
 import os
-import subprocess
+from bash_commands import update_linux, install_pip, install_venv, create_venv, activate_venv, open_project
 
 home_directory = Path.home()
 os.chdir(home_directory)
 
-default_directory = f'{home_directory}/tests'
+def divider():
+  global div
+  div = '='*50
+  print(div)
+
+setting_new_directory = str(input(
+  f'Informe um diretório: {divider}\n - personal-projects\n - course-projects\n - roleplay\nYour answer: '
+  )
+)
+
+if setting_new_directory == 'personal-projects':
+  f'{home_directory}/personal-projects'
+elif setting_new_directory == 'course-projects':
+  f'{home_directory}/course-projects'
+elif setting_new_directory == 'roleplay':
+  f'{home_directory}/roleplay'
+else:
+  print('Valor inválido! Por favor, informe um diretório válido')
+  
+default_directory = f'{home_directory}/{setting_new_directory}'
 
 if os.path.exists(default_directory) == False:
   os.mkdir(default_directory)
@@ -23,10 +42,10 @@ os.chdir(complete_project_path)
 
 if os.path.isfile(f'{complete_project_path}/main.py') == False:
   os.mknod('main.py')
-  
-subprocess.run(f'''sudo apt update -y && sudo apt-get upgrade -y''', shell=True, check=True, executable='/bin/bash')
-subprocess.run(f'''sudo apt install python3-pip''', shell=True, check=True, executable='/bin/bash')
-subprocess.run(f'''sudo apt install python3-venv''', shell=True, check=True, executable='/bin/bash')
-subprocess.run(f'''python3 -m venv .venv''', shell=True, check=True, executable='/bin/bash')
-subprocess.run(f'''source .venv/bin/activate''', shell=True, check=True, executable='/bin/bash')
-subprocess.run(f'''code {complete_project_path}''', shell=True, check=True, executable='/bin/bash')
+
+update_linux()
+install_pip()
+install_venv()
+create_venv()
+activate_venv()
+open_project(complete_project_path)
