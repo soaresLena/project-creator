@@ -4,17 +4,18 @@ import os
 def change_dir(dir:str):
   return os.chdir(dir)
 
-def capture_home_directory():
+def change_home_directory():
   home_directory = Path.home()
+  change_dir(home_directory)
   return home_directory
   
 def make_dir(dir:str):
-  return os.mkdir(dir)
+  if os.path.exists(dir) == False:
+    os.mkdir(dir)
 
 def check_directory_exists(dir:str):
-  if os.path.exists(dir) == False:
-    make_dir(dir)
-    
+  make_dir(dir)
+  
   return change_dir(dir)
   
 def check_file_exists(complete_project_path, file:str):
