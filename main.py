@@ -4,11 +4,9 @@ from bash_commands import update_linux, install_pip, install_venv, create_venv, 
 
 home_dir = change_home_directory()
 setting_new_directory = new_directory_name(home_dir)
-default_directory = setting_new_directory
-print(default_directory)
-check_directory_exists(default_directory)
+check_directory_exists(setting_new_directory)
 project_name = str(input('Infome o nome do projeto: '))
-complete_project_path = f'{default_directory}/{project_name}'
+complete_project_path = f'{setting_new_directory}/{project_name}'
 check_directory_exists(complete_project_path)
 check_file_exists(complete_project_path, 'main.py')
 
